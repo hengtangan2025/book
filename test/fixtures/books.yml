@@ -15,3 +15,11 @@ two:
   keyword: MyText
   description: MyText
   price: 9.99
+
+ruby:  
+  title:  岛屿来信
+  image_url: s2799634.jpg
+  author: 陶立夏
+  keyword: 随笔 / 散文 / 游记
+  description: 那些我们路过的人和故事，都是我们生命的另一种可能
+  price: 250.41

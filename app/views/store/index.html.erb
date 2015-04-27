@@ -1,0 +1,41 @@
+<li>
+  <a href="http://192.168.1.240:3000/books/1">ss</a>
+</li>
+<div>
+    <%= link_to '文学' %><br />
+    <%= link_to '流行' %><br />
+    <%= link_to '文化' %><br />
+    <%= link_to '生活' %><br />
+    <%= link_to '经管' %><br />
+    <%= link_to '科技' %><br />
+
+<div id="main">
+  <div>
+        <label for="name">昵称:</label>
+        <%= text_field_tag :name, params[:name] %>
+      </div>
+      <div>
+        <label for="password">密码:</label>
+        <%= password_field_tag :password, params[:password] %>
+      </div>
+
+      <div>
+        <%= submit_tag "登陆" %>
+      </div>
+      <div>
+        <%= link_to '注册', new_user_path %>
+      </div>
+
+<h1><%= '推荐书籍' %></h1>
+  <% @books.each do |book| %>
+    <div class="entry">
+      <%= image_tag(book.image_url)  %>
+      <h3><%= book.title %></h3>
+      <%= book.author %>
+      <%= book.keyword %>
+      <%= sanitize(book.description) %>
+      <div class="price_line">
+        <span class="price"><%= number_to_currency(book.price) %></span>
+          <%= button_to '购买', line_items_path(:book_id => book) %>
+      </div>
+  <% end %>
