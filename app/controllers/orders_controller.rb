@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all
+    @cart = current_cart
   end
 
   # GET /orders/1
@@ -14,7 +15,17 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    @cart = current_cart
+    if @cart.line_items.empty?
+      redirect_to store_url, :notice => "购物车已清空"
+      return
+    end
     @order = Order.new
+
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @order}
+    end
   end
 
   # GET /orders/1/edit
@@ -25,10 +36,13 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.add_line_items_from_cart(current_cart)
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+        format.html { redirect_to store_url, notice: '订单已提交' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }

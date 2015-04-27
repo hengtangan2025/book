@@ -1,14 +1,22 @@
 <p id="notice"><%= notice %></p>
 <h2>我的购物车</h2>
-<u1>
+<table>
   <% @cart.line_items.each do |item|
     %>
-    <li><%= item.quantity %> &time; <li><%= item.book.title %></li>
+    <tr>
+      <td><%= item.quantity %> &times;</td>
+      <td><%= item.book.title %></td>
+      <td class="item_price"><%= number_to_currency(item.total_price) %></td>
+    </tr>
   <% end %>
-</u1>
 
-<%= button_to 'Enpty cart', @cart, :method => :delete,
+  <tr class="total_line">
+    <td colspan="2">Total</td>
+    <td class="total_cell"><%= number_to_currency(@cart.total_price) %></td>
+  </tr>
+</table>
+
+<%= button_to '结算', new_order_path, :method => :get %>
+<%= button_to '清空购物车', @cart, :method => :delete,
     :confirm => 'Are you sure?' %>
 
-<%= link_to 'Edit', edit_cart_path(@cart) %> |
-<%= link_to 'Back', carts_path %>
