@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+  post 'store/index'
   get 'store/index'
 
   resources :orders
@@ -7,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :carts
 
-  resources :books
+  resources :books 
 
   resources :users
   root :to => "store#index", :as => 'store'

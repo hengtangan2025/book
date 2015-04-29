@@ -1,0 +1,26 @@
+<div class="bookstore_form">
+  <% if flash[:alert] %>
+  <p id="notice"><%= flash[:alert] %></p>
+  <% end %>
+
+  <%= form_tag do %>
+    <fieldset>
+      <legend>请输入邮箱和密码</legend>
+
+      <div>
+        <label for="email">邮箱地址:</label>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div>
+        <label for="password">密码:</label>
+        <%= password_field_tag :password, params[:password] %>
+      </div>
+
+      <div>
+        <%= submit_tag "登陆" %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>
+
+

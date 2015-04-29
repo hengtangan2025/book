@@ -1,3 +1,25 @@
+<form action ="/login" accept-charset="UTF-8" method = "post" >
+    <fieldset>
+      <legend>用户登录</legend>
+
+      <div>
+        <label for="email">邮箱地址:</label>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div>
+        <label for="password">密码:</label>
+        <%= password_field_tag :password, params[:password] %>
+      </div>
+
+      <div>
+        <%= submit_tag "登陆" %>
+      </div>
+      <div>
+        <%= link_to "注册", new_user_path %>
+      </div>
+    </fieldset>
+  
+</div>
 <li>
   <a href="http://192.168.1.240:3000/books/1">ss</a>
 </li>
@@ -10,21 +32,6 @@
     <%= link_to '科技' %><br />
 
 <div id="main">
-  <div>
-        <label for="name">昵称:</label>
-        <%= text_field_tag :name, params[:name] %>
-      </div>
-      <div>
-        <label for="password">密码:</label>
-        <%= password_field_tag :password, params[:password] %>
-      </div>
-
-      <div>
-        <%= submit_tag "登陆" %>
-      </div>
-      <div>
-        <%= link_to '注册', new_user_path %>
-      </div>
 
 <h1><%= '推荐书籍' %></h1>
   <% @books.each do |book| %>
