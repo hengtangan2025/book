@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   def new
     @cart = current_cart
     if @cart.line_items.empty?
-      redirect_to store_url, :notice => "购物车已清空"
+      redirect_to store_index_path, :notice => "购物车已清空"
       return
     end
     @order = Order.new
@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to store_url, notice: '订单已提交' }
+        format.html { redirect_to store_index_path, notice: '订单已提交' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }

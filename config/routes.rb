@@ -5,8 +5,11 @@ Rails.application.routes.draw do
     post 'login' => :create
     delete 'logout' => :destroy
   end
-  post 'store/index'
   get 'store/index'
+
+  get 'store/search'
+
+  get 'store/classify'
 
   resources :orders
 
@@ -17,7 +20,7 @@ Rails.application.routes.draw do
   resources :books 
 
   resources :users
-  root :to => "store#index", :as => 'store'
+  root  'sessions#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

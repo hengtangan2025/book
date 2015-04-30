@@ -15,10 +15,10 @@ class CartsController < ApplicationController
       @cart = Cart.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Attempt to access invilid cart #{params[:id]}"
-      redirect_to store_url, :notice => 'Invilid cart'
+      redirect_to store_index_path, :notice => 'Invilid cart'
     else
       respond_to do |format|
-        format.html
+        format.html # show.html.erb
         format.xml { render :xml => @cart }
       end
     end
@@ -26,7 +26,17 @@ class CartsController < ApplicationController
 
   # GET /carts/new
   def new
-    @cart = Cart.new
+    begin
+      @cart = Cart.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      logger.error "Attempt to access invilid cart #{params[:id]}"
+      redirect_to store_index_path, :notice => 'Invilid cart'
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml { render :xml => @cart }
+      end
+    end
   end
 
   # GET /carts/1/edit
@@ -70,7 +80,7 @@ class CartsController < ApplicationController
     @cart.destroy
     session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to store_url, notice: '购物车已清空' }
+      format.html { redirect_to store_index_path, notice: '购物车已清空' }
       format.json { head :no_content }
     end
   end
@@ -85,6 +95,4 @@ class CartsController < ApplicationController
     def cart_params
       params[:cart]
     end
-  end
-
-
+end

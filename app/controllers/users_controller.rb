@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to store_url, notice: '注册成功' }
+        format.html { redirect_to login_url, notice: '注册成功' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
