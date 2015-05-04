@@ -3,30 +3,16 @@
   <h1>书籍列表</h1>
 
 <table>
-<% @books.each do |book| %>
-  <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-
-    <td>
-      <%= image_tag(book.image_url, :class => 'list_image') %>
-    </td>
-
-    <td class="list_description">
-      <dl>
-        <dt><%= book.title %></dt>
-        <dt><%= book.author %></dt>
-        <dt><%= book.keyword %></dt>
-        <dd><%= book.description %></dd>
-      </dl>
-    </td>
-
-    <td class="list_actions">
-      <%= link_to 'Show', book %></br>
-      <%= link_to'Edit', edit_book_path(book) %> </br>
-      <%= link_to 'Destroy', book,
-          :confirm => 'Are you sure?',
-          :method => :delete %>
-    </td>
-  </tr>
+  <% @books.each do |book| %>
+    <div class="entry">
+      <%= image_tag(book.image_url)  %>
+      <h3><%= book.title %></h3>
+      <%= book.author %>
+      <%= book.keyword %>
+      <%= sanitize(book.description) %>
+      <div class="price_line">
+        <span class="price"><%= number_to_currency(book.price) %></span>
+          <%= button_to '购买', line_items_path(:book_id => book) %>
+      </div>
   <% end %>
 </table>
-</div>
