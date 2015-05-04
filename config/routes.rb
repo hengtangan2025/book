@@ -9,7 +9,13 @@ Rails.application.routes.draw do
 
   get 'store/search'
 
-  get 'store/classify'
+  get 'store/sanwen'
+
+  get 'store/xiaoshuo'
+
+  get 'store/shige'
+
+  get 'store/mingzhu'
 
   resources :orders
 

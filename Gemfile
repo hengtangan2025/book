@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'will_paginate',        '>= 3.0.pre'
 gem 'rails',                '4.2.0'
 gem 'bcrypt',               '3.1.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
