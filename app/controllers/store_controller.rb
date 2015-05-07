@@ -1,14 +1,15 @@
 class StoreController < ApplicationController
   def index
     @books = Book.all
+    @books = Book.paginate :page => params[:page], :per_page => 5
   end
 
   def search
     @books = Book.where(["title = ? or keyword = ? or author = ?", params[:search_text], params[:search_text], params[:search_text]])
+    @books = Book.paginate :page => params[:page], :per_page => 5
   end
 
   def sanwen
-    @books = Books.where(:keyword => '%E6%95%A3%E6%96%87')
   end
 
   def xiaoshuo
