@@ -17,4 +17,9 @@
     </div>
   <% end %>
 </table>
-<%= will_paginate @books %>
+<div>
+  <div>
+    <%= page_entries_info @books %>
+  </div>
+    <%= will_paginate @books %>
+</div>

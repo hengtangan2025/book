@@ -27,7 +27,6 @@
       <%= image_tag(book.image_url)  %>
       <h3><%= book.title %></h3>
       <%= book.author %>
-      <%= book.keyword %>
       <%= sanitize(book.description) %>
       <div class="price_line">
         <span class="price"><%= number_to_currency(book.price) %></span>

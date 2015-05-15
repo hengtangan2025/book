@@ -14,7 +14,6 @@
       <dl>
         <dt><%= book.title %></dt>
         <dt><%= book.author %></dt>
-        <dt><%= book.keyword %></dt>
         <dd><%= book.description %></dd>
         <dt><%= book.price %></dt>
       </dl>
@@ -34,4 +33,3 @@
 <br />
 
 <%= link_to '添加书籍', new_book_path %>
-<p><%= will_paginate @books %></p>

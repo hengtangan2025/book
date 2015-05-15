@@ -1,3 +1,5 @@
+require 'json'
+require 'net/http'
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
@@ -25,7 +27,18 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
+    @book = Book.create(:title => title, :author => author, :iamge_url => image, :price => price, :keyword => tags, :description => summary)
+    response = Net::HTTP.get_response(URI('https://api.douban.com/v2/book/search?count=100&q=%E5%A4%A7%E9%99%86&fields=title,author,image,summary,tags,price'))
+    @list = JSON.parse(response.body)
+    @list['books'].each do |book_info|
+      title = book_info["title"]
+      author = book_info["author"]
+      image = book_info["image"]
+      price = book_info["price"]
+      summary = book_info["summary"]
+      tags = book_info["tags"]
+      Book.create(:title => title, :author => author, :image_url => image, :price => price, :keyword => tags, :description => summary)
+    end
 
     respond_to do |format|
       if @book.save
@@ -33,6 +46,20 @@ class BooksController < ApplicationController
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /books/1
+  # PATCH/PUT /books/1.json
+  def update
+    respond_to do |format|
+      if @book.update(book_params)
+        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        format.json { render :show, status: :ok, location: @book }
+      else
+        format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
