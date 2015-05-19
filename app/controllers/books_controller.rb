@@ -36,7 +36,7 @@ class BooksController < ApplicationController
       image = book_info["image"]
       price = book_info["price"]
       summary = book_info["summary"]
-      tags = book_info["tags"]
+      tags = book_info["tags"]["title"]
       Book.create(:title => title, :author => author, :image_url => image, :price => price, :keyword => tags, :description => summary)
     end
 

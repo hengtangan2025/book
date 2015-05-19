@@ -1,1 +1,12 @@
-<%= @s %>
+<% @books.each do |book| %>
+    <div class="entry">
+      <%= image_tag(book.image_url)  %>
+      <h3><%= book.title %></h3>
+      <%= book.author %>
+      <%= sanitize(book.description) %>
+      <div class="price_line">
+        <span class="price"><%= number_to_currency(book.price) %></span>
+          <%= button_to '购买', line_items_path(:book_id => book) %>
+      </div>
+  <% end %>
+<%= will_paginate @books %>

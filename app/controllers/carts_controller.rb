@@ -46,8 +46,8 @@ class CartsController < ApplicationController
   # POST /carts
   # POST /carts.json
   def create
-    @user = User.find_by_user_id(session[:user_id])
-    @cart = Cart.where(user_id: @user.id)
+    @a = current_user
+    @cart = @a.Cart.where(user_id: @a.id)
     respond_to do |format|
       if @cart.save
         format.html { redirect_to @cart, notice: 'Cart was successfully created.' }

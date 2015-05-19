@@ -9,14 +9,15 @@
       <div class="inp-btn">
         <input type="submit" value="搜索">
       </div>
-      <input type="hidden" name="field" value="title,author">
     </fieldset>
   </form>
 </div>
   <%= link_to '散文' , store_sanwen_path %>
-  <a href="http://192.168.1.240:3000/store/search?search_text=小说&field=title%2Cauthor">小说</a>
-  <a href="http://192.168.1.240:3000/store/search?search_text=诗歌&field=title%2Cauthor">诗歌</a>
-  <a href="http://192.168.1.240:3000/store/search?search_text=名著&field=title%2Cauthor">名著</a>
+  <%= link_to '小说' , store_xiaoshuo_path %>
+  <%= link_to '诗歌' , store_shige_path %>
+  <%= link_to '名著' , store_mingzhu_path %>
+
+  
   
 
 <div id="main">
