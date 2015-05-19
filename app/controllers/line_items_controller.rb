@@ -29,7 +29,6 @@ class LineItemsController < ApplicationController
     @line_item = @cart.line_items.build
     @line_item.book = book
     @line_item = @cart.add_book(book.id)
-    
 
     respond_to do |format|
       if @line_item.save

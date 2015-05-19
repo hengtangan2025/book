@@ -1,4 +1,5 @@
 class Cart < ActiveRecord::Base
+  belongs_to :user, foreign_key: "user_id"
   has_many :line_items, :dependent => :destroy
 
   def add_book(book_id)
