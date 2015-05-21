@@ -27,7 +27,7 @@ class CartsController < ApplicationController
   # GET /carts/new
   def new
     begin
-      @cart = Cart.find(params[:id])
+      @cart = Cart.find(params[user_id: @user.id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Attempt to access invilid cart #{params[:id]}"
       redirect_to store_index_path, :notice => 'Invilid cart'
@@ -46,11 +46,10 @@ class CartsController < ApplicationController
   # POST /carts
   # POST /carts.json
   def create
-    @a = current_user
-    @cart = @a.Cart.where(user_id: @a.id)
+    @cart = Cart.where(user_id: session[:user_id])
     respond_to do |format|
       if @cart.save
-        format.html { redirect_to @cart, notice: 'Cart was successfully created.' }
+        format.html { redirect_to :action => :show, :id => @user.id }
         format.json { render :show, status: :created, location: @cart }
       else
         format.html { render :new }
@@ -76,11 +75,9 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart = current_cart
     @cart.destroy
-    session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to store_index_path, notice: '购物车已清空' }
+      format.html { redirect_to carts_path, notice: '购物车已清空' }
       format.json { head :no_content }
     end
   end

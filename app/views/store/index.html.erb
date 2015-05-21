@@ -31,7 +31,7 @@
       <%= sanitize(book.description) %>
       <div class="price_line">
         <span class="price"><%= number_to_currency(book.price) %></span>
-          <%= button_to '购买', line_items_path(:book_id => book) %>
+          <%= button_to '购买', line_items_path(:book_id => book,:user_id => session[:user_id]) %>
       </div>
   <% end %>
 <%= will_paginate @books %>

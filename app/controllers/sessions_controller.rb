@@ -8,9 +8,6 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email].downcase)
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      user.remember
-      cookies.permanent.signed[:user_id] = user.id
-      cookies.permanent[:remember_token] = user.remember_token
       redirect_to user
     else
       redirect_to login_url, :alert => "Invalid user/password combination"
@@ -18,7 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
-    redirect_to store_url, :notice => "Logged out"
+    log_out
+    redirect_to root_url, :notice => "Logged out"
   end
 end

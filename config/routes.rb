@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :line_items
-  resources :orders
-  resources :carts
-
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
@@ -24,9 +20,12 @@ Rails.application.routes.draw do
   resources :books 
 
   resources :users 
-    
+  resources :line_items
+  resources :orders
+  resources :carts
   
-  root  'sessions#new'
+    
+  root  'users#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
