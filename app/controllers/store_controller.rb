@@ -11,7 +11,8 @@ class StoreController < ApplicationController
     string1 = params[:search_text]
     string =  'https://api.douban.com/v2/book/search?count=100&tag='+string1+'&fields=id,title,author,image,summary,tags,price'
     uri = URI.escape string
-    @books = Book.all
+    @a = user.books
+    book = Book.find(params[:book_id])
     @books = Book.order("created_at DESC, id DESC").paginate :page => params[:page], :per_page => 5  
     html_response = nil  
     open(uri) do |http|  
@@ -57,7 +58,7 @@ class StoreController < ApplicationController
       price = book_info["price"]
       summary = book_info["summary"]
       tags = book_info["tags"]
-      Book.create(:title => title, :author => author, :image_url => image, :price => price, :keyword => tags, :description => summary)
+      user.Book.create(:title => title, :author => author, :image_url => image, :price => price, :keyword => tags, :description => summary)
     end
   end
 

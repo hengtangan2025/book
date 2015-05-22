@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :book_users
+
   controller :sessions do
     get 'login' => :new
     post 'login' => :create

@@ -1,4 +1,4 @@
-<% @books.each do |book| %>
+<% @user.books.each do |book| %>
     <div class="entry">
       <%= image_tag(book.image_url)  %>
       <h3><%= book.title %></h3>
@@ -9,4 +9,4 @@
           <%= button_to '购买', line_items_path(:book_id => book) %>
       </div>
   <% end %>
-<%= will_paginate @books %>
+<%= will_paginate @user.books %>

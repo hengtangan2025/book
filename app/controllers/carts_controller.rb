@@ -4,8 +4,7 @@ class CartsController < ApplicationController
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all
-    @cart = current_cart
+    @carts = Cart.where(user_id:session[:user_id]).all
   end
 
   # GET /carts/1
@@ -26,17 +25,8 @@ class CartsController < ApplicationController
 
   # GET /carts/new
   def new
-    begin
-      @cart = Cart.find(params[user_id: @user.id])
-    rescue ActiveRecord::RecordNotFound
-      logger.error "Attempt to access invilid cart #{params[:id]}"
-      redirect_to store_index_path, :notice => 'Invilid cart'
-    else
-      respond_to do |format|
-        format.html # show.html.erb
-        format.xml { render :xml => @cart }
-      end
-    end
+    @cart = Cart.new
+    @user_id = seesion[:user_id]
   end
 
   # GET /carts/1/edit
@@ -46,12 +36,14 @@ class CartsController < ApplicationController
   # POST /carts
   # POST /carts.json
   def create
-    @cart = Cart.where(user_id: session[:user_id])
+    @cart = Cart.create(user_id:@user.id)
     respond_to do |format|
       if @cart.save
         format.html { redirect_to :action => :show, :id => @user.id }
         format.json { render :show, status: :created, location: @cart }
       else
+        @user_id = params[:user_id]
+
         format.html { render :new }
         format.json { render json: @cart.errors, status: :unprocessable_entity }
       end

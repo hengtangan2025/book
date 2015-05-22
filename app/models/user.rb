@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :book_user
+  has_many :books, :through => :book_user
   has_many :line_items
   has_many :carts
   attr_accessor :remember_token
