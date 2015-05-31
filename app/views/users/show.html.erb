@@ -6,7 +6,6 @@
 <% if session[:user_id] %>
   <br />
   <%= link_to '购书', store_index_path %><br />
-  <%= link_to '购物车', carts_path %><br />
   <%= link_to '订单', orders_path %><br />
   <br />
     <%= button_to '退出', logout_path, :method => :delete %>

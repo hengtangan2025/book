@@ -20,18 +20,16 @@
     <%= f.text_area :address, :rows => 3, :cols => 40 %>
   </div>
   <div class="field">
-    <%= f.label :电话 %><br>
-    <%= f.text_field :email, :size => 40 %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.label :邮箱 %><br>
+    <%= f.text_area :email %>
   </div>
   <div class="field">
     <%= f.label :支付方式 %><br>
     <%= f.select :pay_type, Order::PAYMENT_TYPES, 
       :prompt => '选择一种支付方式' %>
+  </div>
+    <%= hidden_field_tag 'order[user_id]',session[:user_id] %>
   <div class="actions">
-    <%= f.submit '提交订单'%>
+    <%= f.submit '提交订单' %>
   </div>
 <% end %>

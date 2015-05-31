@@ -1,5 +1,6 @@
 class AddUserIdAndBookIdToBookUsers < ActiveRecord::Migration
   def change
-    add_column :user_id, :book_id, :integer
+    add_column :book_users, :book_id, :integer
+    add_column :book_users, :user_id, :integer
   end
 end

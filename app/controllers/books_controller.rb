@@ -27,18 +27,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.create(:title => title, :author => author, :iamge_url => image, :price => price, :keyword => tags, :description => summary)
-    response = Net::HTTP.get_response(URI('https://api.douban.com/v2/book/search?count=100&q=%E5%A4%A7%E9%99%86&fields=title,author,image,summary,tags,price'))
-    @list = JSON.parse(response.body)
-    @list['books'].each do |book_info|
-      title = book_info["title"]
-      author = book_info["author"]
-      image = book_info["image"]
-      price = book_info["price"]
-      summary = book_info["summary"]
-      tags = book_info["tags"]["title"]
-      Book.create(:title => title, :author => author, :image_url => image, :price => price, :keyword => tags, :description => summary)
-    end
+    @book = Book.new(book_params)
 
     respond_to do |format|
       if @book.save

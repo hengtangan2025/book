@@ -1,14 +1,33 @@
-<p id="notice"><%= notice %></p>
-<div id="book_list">
-  <h1>书籍列表</h1>
+<div class="nav-search" >
+  <form action="/store/search" method="get">
+    <fiedset>
+      <legend>搜索:</legend>
+      <label for="inp-query" style="display: none;">书名 作者</label>
+      <div class="inp">
+        <input id="inp-query" name="search_text" size="22" maxlength="60" value placeholder="书名 作者" autocomplete="off" dir="1tr">
+      </div>
+      <div class="inp-btn">
+        <input type="submit" value="搜索">
+      </div>
+    </fieldset>
+  </form>
+</div>
+  <%= link_to '散文' , store_sanwen_path %>
+  <%= link_to '小说' , store_xiaoshuo_path %>
+  <%= link_to '诗歌' , store_shige_path %>
+  <%= link_to '名著' , store_mingzhu_path %>
+
+  
+  
+
+<div id="main">
 
 <table>
-  <% @user.books.each do |book| %>
+  <% @books.each do |book| %>
     <div class="entry">
       <%= image_tag(book.image_url)  %>
       <h3><%= book.title %></h3>
       <%= book.author %>
-      <%= book.keyword %>
       <%= sanitize(book.description) %>
       <div class="price_line">
         <span class="price"><%= number_to_currency(book.price) %></span>
@@ -17,9 +36,5 @@
     </div>
   <% end %>
 </table>
-<div>
-  <div>
-    <%= page_entries_info @user.books %>
-  </div>
-    <%= will_paginate @user.books %>
-</div>
+
+

@@ -4,8 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
-    @cart = current_cart
+    @orders = Order.where(user_id:session[:user_id]).all
   end
 
   # GET /orders/1
@@ -40,6 +39,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
+        Book.destroy_all
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html { redirect_to store_index_path, notice: '订单已提交' }
