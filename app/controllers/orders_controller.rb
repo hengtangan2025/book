@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        Book.destroy_all
+        User.find(session[:user_id]).books.destroy_all
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html { redirect_to store_index_path, notice: '订单已提交' }
