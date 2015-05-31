@@ -62,7 +62,7 @@ class StoreController < ApplicationController
       book = Book.create(:title => title, :author => author, :image_url => image, :price => price, :keyword => tags, :description => summary)
       user = User.find(session[:user_id])
       user.books<<book
-      @books = user.books.paginate :page => params[:page], :per_page => 20
+      @books = user.books.order("created_at DESC, id DESC").paginate :page => params[:page], :per_page => 20
     end
   end
 
