@@ -14,11 +14,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @cart = current_cart
-    if @cart.line_items.empty?
-      redirect_to store_index_path, :notice => "购物车已清空"
-      return
-    end
     @order = Order.new
 
     respond_to do |format|
